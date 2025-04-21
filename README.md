@@ -30,5 +30,11 @@ This project demonstrates core systems programming concepts by implementing:
 ---
 
 ## Architecture
+## Architecture
 
+Below is the high‑level architecture of the distributed file system:
+
+![Distributed File System Architecture](assets/architecture.png)
+
+<small>**Figure 1.** Client (`w25clients`) → Main Server (`S1`) → PDF Server (`S2`), Text Server (`S3`), ZIP Server (`S4`). Ports shown are defaults.</small>
 
