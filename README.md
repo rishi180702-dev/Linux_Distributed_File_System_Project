@@ -1,40 +1,38 @@
-# Linux_Distributed_File_System_Project
-A simple distributed file system in C using UNIX sockets. Clients interact with a single main server (S1), which transparently routes files by type to dedicated back‑end servers (S2–S4).
+## Project Description
 
----
+This project is a **Distributed File System** developed in C using UNIX socket programming. It simulates a real-world system where files are routed and stored based on their type, all through a centralized interface. Below are the key highlights:
 
-## Table of Contents
+- 📁 **Modular Server Architecture**  
+  - `S1`: Main server that handles client requests and routes files  
+  - `S2`: Stores `.pdf` files  
+  - `S3`: Stores `.txt` files  
+  - `S4`: Stores `.zip` files  
 
-1. [Overview](#overview)  
-2. [Architecture](#architecture)  
-3. [Features](#features)  
-4. [Getting Started](#getting-started)  
-   - [Prerequisites](#prerequisites)  
-   - [Directory Setup](#directory-setup)  
-   - [Build](#build)  
-   - [Run](#run)  
-5. [Usage Examples](#usage-examples)  
-6. [Learning Outcomes](#learning-outcomes)  
-7. [License](#license)
+- 💻 **Client Interface (`w25clients`)**  
+  - Command-line based client tool  
+  - Interacts only with `S1`, unaware of other servers  
+  - Allows upload, download, delete, list, and tar operations
 
----
+- 🔁 **Concurrent Processing**  
+  - `S1` uses `fork()` to serve multiple clients simultaneously  
+  - `S2`, `S3`, `S4` use threads (`pthreads`) for parallel handling of requests
 
-## Overview
+- 🧠 **Intelligent File Routing**  
+  - `.c` files are stored directly in `~/S1`  
+  - `.pdf`, `.txt`, and `.zip` files are forwarded to `S2`, `S3`, and `S4` respectively  
+  - Non-`.c` files are deleted from `S1` after being forwarded
 
-This project demonstrates core systems programming concepts by implementing:
+- 📂 **File Operations Supported**  
+  - `uploadf <filename> <~S1/path>`  
+  - `downlf <~S1/filepath>`  
+  - `removef <~S1/filepath>`  
+  - `dispfnames <~S1/dir>`  
+  - `downltar <filetype>`
 
-- **S1 (Main Server):** Forks a child for each client, stores `.c` files locally, and forwards other file types to S2–S4.  
-- **S2, S3, S4 (Back‑End Servers):** Each serves a single file type (`.pdf`, `.txt`, `.zip`), handling storage, retrieval, deletion, and listing.  
-- **w25clients (Client):** Command‑line interface to upload, download, and manage files via S1.
+- 🛠 **Core Concepts Demonstrated**  
+  - Socket programming  
+  - Inter-process and multi-threaded communication  
+  - File I/O and directory management  
+  - Distributed system behavior using local simulation
 
----
-
-## Architecture
-## Architecture
-
-Below is the high‑level architecture of the distributed file system:
-
-![Distributed File System Architecture](assets/architecture.png)
-
-<small>**Figure 1.** Client (`w25clients`) → Main Server (`S1`) → PDF Server (`S2`), Text Server (`S3`), ZIP Server (`S4`). Ports shown are defaults.</small>
-
+This project is ideal for understanding system-level programming and networking in a Linux environment. It provides hands-on experience with real-world tools like sockets, processes, threads, and file systems.
